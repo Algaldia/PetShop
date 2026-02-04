@@ -88,8 +88,6 @@ void cadastrarAnimal(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
         printf("Informe a Idade: ");
         scanf("%d", &idadeAnimal[*quantidadeAnimal]);
 
-        /*printf("Informe o Código: ");
-        scanf("%d", &idAnimal[*quantidadeAnimal]);*/
         idAnimal[*quantidadeAnimal] = *quantidadeAnimal + 1;
 
         statusAdocao[*quantidadeAnimal] = 0;
@@ -102,6 +100,42 @@ void cadastrarAnimal(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
 }
 
 void registrarAdocao(char especieAnimal[][TAM], int *quantidadeAnimal, char corAnimal[][TAM], int idadeAnimal[], int idAnimal[], int statusAdocao[]){
+	system(clear);
+	int codigo_busca;
+	int encontrado = 0;
+	if(*quantidadeAnimal == 0){
+		printf("\n===== NÃO HÁ ANIMAIS DISPONÍVEIS PARA ADOÇÃO =====\n");
+	}else{
+		printf("\n===== REGISTRAR ADOÇÃO =====\n");
+		printf("Digite o código do animal para adoção: ");
+		scanf(" %d", &codigo_busca);
+		for(int i = 0; i < *quantidadeAnimal; i++){
+		       if(idAnimal[i] == codigo_busca){
+		       	if(statusAdocao[i] == 1){
+		       		printf("\nAnimal não disponível para adoção!\n\n");
+					encontrado = 1;	
+				}else{
+		            printf("\nAnimal Registrado com Sucesso!\n\n");
+		            //printf("Código: %d\n", idAnimal[i]);
+		            //printf("Espécie: %s\n", especieAnimal[i]);
+			        //printf("Idade: %d\n", idadeAnimal[i]);
+			        //printf("Cor: %s\n", corAnimal[i]);
+			        statusAdocao[i] = 1;
+			            
+			
+		            encontrado = 1;
+		            break;
+				}			
+	           }
+	       }
+	       if(encontrado == 0){
+	           printf("\nAnimal com código %d não encontrado.\n", codigo_busca);
+	    }
+	}
+	//system("pause");
+    printf("Pressione ENTER para continuar...");
+    limparBuffer();
+    getchar();
     system(clear);
 }
 
@@ -143,14 +177,78 @@ void pesquisarAnimal(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
 }
 
 void imprimirAdocao(char especieAnimal[][TAM], int *quantidadeAnimal, char corAnimal[][TAM], int idadeAnimal[], int idAnimal[], int statusAdocao[]){
+	system(clear);
+
+    int i,aniadot=0;
+    for(i=0;i<*quantidadeAnimal;i++){
+    	if(statusAdocao[i]==1){
+    		aniadot++;
+		}
+	}
+	if(aniadot==0){
+		printf("\n===== NENHUM ANIMAL FOI ADOTADO AINDA =====\n");	
+	}else{
+	printf("\n===== ANIMAIS ADOTADOS =====\n");
+    printf("+--------+-------------+-------+------------+\n");
+    printf("| %-6s | %-11s  | %-5s | %-10s |\n", "Código", "Espécie", "Idade", "Cor");
+    printf("+--------+-------------+-------+------------+\n");
+		for(i=0;i<*quantidadeAnimal;i++){
+			if(statusAdocao[i]==1){
+
+                printf("| %-6.4d | %-11.11s | %-5.2d | %-10.10s |\n", idAnimal[i], especieAnimal[i], idadeAnimal[i], corAnimal[i]);
+
+				/*printf("Especie: ");
+				puts(especieAnimal[i]);	
+				printf("Idade: %d\n",idadeAnimal[i]);
+				printf("cor: ");
+				puts(corAnimal[i]);	
+				printf("Codigo: %d\n",idAnimal[i]);		
+				printf("\n");	*/
+			}
+		}
+	}
+    printf("+--------+-------------+-------+------------+\n");
+    printf("\nPressione ENTER para continuar...");
+    limparBuffer();
     system(clear);
-    printf("ESPECIE: %s", especieAnimal[0]);
-    getchar();
 }
 
 void imprimirDisponiveis(char especieAnimal[][TAM], int *quantidadeAnimal, char corAnimal[][TAM], int idadeAnimal[], int idAnimal[], int statusAdocao[]){
+	system(clear);
+    int i,anidisp=0;
+    for(i=0;i<*quantidadeAnimal;i++){
+    	if(statusAdocao[i]==0){
+    		anidisp++;
+		}
+	}
+	if(anidisp==0){
+		printf("\n===== NÃO TEMOS ANIMAIS DISPONIVEIS PARA ADOÇÃO =====\n");	
+	}else{
+		printf("\n===== ANIMAIS DISPONIVEIS =====\n");
+        printf("+--------+-------------+-------+------------+\n");
+        printf("| %-6s | %-11s  | %-5s | %-10s |\n", "Código", "Espécie", "Idade", "Cor");
+        printf("+--------+-------------+-------+------------+\n");
+		for(i=0;i<*quantidadeAnimal;i++){
+			if(statusAdocao[i]==0){
+
+                printf("| %-6.4d | %-11.11s | %-5.2d | %-10.10s |\n", idAnimal[i], especieAnimal[i], idadeAnimal[i], corAnimal[i]);
+
+				/*printf("Especie: ");
+				puts(especieAnimal[i]);	
+				printf("Idade: %d\n",idadeAnimal[i]);
+				printf("cor: ");
+				puts(corAnimal[i]);	
+				printf("Codigo: %d\n",idAnimal[i]);		
+				printf("\n");	*/
+			}
+		}
+	}
+    printf("+--------+-------------+-------+------------+\n");
+    printf("\nPressione ENTER para continuar...");
+    limparBuffer();
     system(clear);
 }
+
 
 void limparBuffer(){
     int c;
