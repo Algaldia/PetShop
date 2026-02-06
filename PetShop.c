@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define clear "clear"
+#define clear "cls"
 #define MAX 10
 #define TAM 20
 
@@ -90,6 +90,8 @@ void cadastrarAnimal(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
 
         idAnimal[*quantidadeAnimal] = *quantidadeAnimal + 1;
 
+        printf("O codigo do animal é: %d\n", idAnimal[*quantidadeAnimal]);
+
         statusAdocao[*quantidadeAnimal] = 0;
         (*quantidadeAnimal)++;
 
@@ -112,7 +114,7 @@ void registrarAdocao(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
 		for(int i = 0; i < *quantidadeAnimal; i++){
 		       if(idAnimal[i] == codigo_busca){
 		       	if(statusAdocao[i] == 1){
-		       		printf("\nAnimal não disponível para adoção!\n\n");
+		       		printf("\nAnimal já foi adotado!\n\n");
 					encontrado = 1;	
 				}else{
 		            printf("\nAnimal Registrado com Sucesso!\n\n");
@@ -132,7 +134,6 @@ void registrarAdocao(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
 	           printf("\nAnimal com código %d não encontrado.\n", codigo_busca);
 	    }
 	}
-	//system("pause");
     printf("Pressione ENTER para continuar...");
     limparBuffer();
     getchar();
@@ -145,7 +146,10 @@ void pesquisarAnimal(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
     int encontrado = 0;
 
     if(*quantidadeAnimal == 0){
-        printf("\nNenhum animal cadastrado. \n");
+        printf("\n===== NENHUM ANIMAL CADASTRADO =====\n");
+        printf("\n\nAPERTE ENTER PARA CONTINUAR...\n");
+        limparBuffer();
+        //getchar();
         return;
     }
 
@@ -161,7 +165,7 @@ void pesquisarAnimal(char especieAnimal[][TAM], int *quantidadeAnimal, char corA
             printf("Espécie: %s\n", especieAnimal[i]);
             printf("Idade: %d\n", idadeAnimal[i]);
             printf("Cor: %s\n", corAnimal[i]);
-            
+            printf("Status: %s\n", statusAdocao[i] == 0 ? "Disponível" : "Adotado");
             
 
             encontrado = 1;
